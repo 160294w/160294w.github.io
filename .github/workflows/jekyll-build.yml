@@ -1,73 +1,99 @@
 name: Build and Deploy Jekyll Themes
 
 on:
+  # 開発用ブランチ（例: main）へのpushをトリガーにします
   push:
-    branches: [gh-pages]
+    branches: [main]
   workflow_dispatch:
-    
 
 jobs:
-  build:
+  # 'mypage' サイトのビルドジョブ
+  build_mypage:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # grants write permission for repo contents
-
     steps:
-
-      - name: Checkout source
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # フル履歴取得（pushのために必要）
 
-      - name: Setup Ruby
+      - name: Setup Ruby with Cache
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1  # 必要に応じて変更
+          ruby-version: 3.1
+          bundler-cache: true
+          # 'mypage' ディレクトリのGemfileを元にキャッシュ
+          working-directory: './mypage'
 
-      - name: Install Bundler
-        run: gem install bundler
-
-      - name: Build Theme 1
+      - name: Build mypage theme
         working-directory: mypage
-        run: |
-          bundle install
-          bundle exec jekyll build --destination ../../mypage
+        # --destination を削除。デフォルトの '_site' フォルダに出力
+        run: bundle exec jekyll build
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload mypage artifact
+        uses: actions/upload-artifact@v4
         with:
-          github_token: ${{ secrets.GH_PAT }}
-          publish_dir: ./mypage/_site
-          publish_branch: gh-pages
-          force_orphan: true      # 履歴クリアして強制上書き
-          user_name: github-actions[bot]
-          user_email: github-actions[bot]@users.noreply.github.com                    
+          name: mypage-site
+          # 'mypage' 内のビルド成果物（_site）をアップロード
+          path: mypage/_site
 
-      - name: Build Theme 2
+  # 'everyday' サイトのビルドジョブ
+  build_everyday:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby with Cache
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1
+          bundler-cache: true
+          # 'everyday' ディレクトリのGemfileを元にキャッシュ
+          working-directory: './everyday'
+
+      - name: Build everyday theme
         working-directory: everyday
-        run: |
-          bundle install
-          bundle exec jekyll build --destination ../../everyday
+        run: bundle exec jekyll build
 
+      - name: Upload everyday artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: everyday-site
+          # 'everyday' 内のビルド成果物（_site）をアップロード
+          path: everyday/_site
+
+  # デプロイジョブ
+  deploy:
+    runs-on: ubuntu-latest
+    # 2つのビルドジョブが完了したら実行
+    needs: [build_mypage, build_everyday]
+    permissions:
+      contents: write # gh-pagesブランチへの書き込み権限
+
+    steps:
+      # ダウンロードしたアーティファクトを配置する場所を準備
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          clean: true # 以前のファイルをクリーンアップ
+
+      # ビルド成果物を、デプロイしたいフォルダ名でダウンロード
+      - name: Download mypage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: mypage-site
+          path: mypage # 'mypage' フォルダに展開
+
+      - name: Download everyday artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: everyday-site
+          path: everyday # 'everyday' フォルダに展開
+
+      # gh-pagesアクションを使ってデプロイ
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GH_PAT }}          
-          publish_dir: ./everyday/_site
-          publish_branch: gh-pages
-          force_orphan: true      # 履歴クリアして強制上書き
-          user_name: github-actions[bot]
-          user_email: github-actions[bot]@users.noreply.github.com          
-
-          
-
-      # - name: Push to gh-pages
-      #   run: |
-      #     git config user.name "github-actions"
-      #     git config user.email "github-actions@github.com"
-      #     git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}
-      #     git add -A
-      #     git commit -m "Update site" || echo "Nothing to commit"
-      #     git push origin gh-pages
-
-
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 'mypage' と 'everyday' フォルダが含まれるルートディレクトリを公開
+          publish_dir: .
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
