@@ -2,7 +2,7 @@
 
 Minimal MistakesテーマとGitHub Pagesを使用したモダンなJekyllブログです。GitHub Pages互換の開発環境とDockerサポートを備えています。
 
-## ✨ 特徴
+## 特徴
 
 - **モダンなテーマ**: レスポンシブデザインの美しいMinimal Mistakesテーマ
 - **GitHub Pages互換**: シームレスなデプロイのための完全環境マッチング
@@ -11,7 +11,7 @@ Minimal MistakesテーマとGitHub Pagesを使用したモダンなJekyllブロ�
 - **自動ビルドシステム**: カラーコード出力付きの包括的Makefile
 - **ライブリロード**: 開発中のブラウザ自動更新
 
-## 🚀 クイックスタート
+## クイックスタート
 
 ### オプション1: GitHub Pages互換（推奨）
 ```bash
@@ -184,7 +184,7 @@ author_profile: true
 ページのコンテンツ...
 ```
 
-## 🎨 テーマ設定
+## テーマ設定
 
 このサイトは[Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/)テーマを使用しています:
 
@@ -203,7 +203,7 @@ author_profile: true
 - ナビゲーション
 - テーマ設定
 
-## 🌐 デプロイ
+## デプロイ
 
 ### GitHub Pages（自動）
 1. `gh-pages`ブランチに変更をプッシュ
@@ -218,7 +218,7 @@ make build
 # `_site`ディレクトリにビルド済みサイトが含まれます
 ```
 
-## 📊 GitHub Pages互換性
+## GitHub Pages互換性
 
 このプロジェクトは完全なGitHub Pages互換性のために設定されています:
 
@@ -227,7 +227,7 @@ make build
 - **プラグイン**: GitHub Pages承認済みプラグインのみ
 - **依存関係**: `github-pages` gemによる完全バージョンマッチング
 
-## 🔧 要件
+## 要件
 
 ### ローカル開発
 - Ruby 3.3.4または互換バージョン
@@ -245,7 +245,7 @@ make check-docker    # Dockerが動作しているか確認
 make check-compose   # Docker Composeを確認
 ```
 
-## 📚 サンプルコンテンツ
+## サンプルコンテンツ
 
 サイトには日本語のサンプルブログ記事が含まれています:
 
@@ -286,26 +286,3 @@ make check-compose   # Docker Composeを確認
 - すべてのコマンドは`make help`で確認
 - 開発ガイダンスは`CLAUDE.md`を確認
 - `make validate`で環境を検証
-
-## 🤝 貢献
-
-1. リポジトリをフォーク
-2. 機能ブランチを作成
-3. 変更を行う
-4. `make github-pages-serve`でローカルテスト
-5. プルリクエストを送信
-
-## 📄 ライセンス
-
-このプロジェクトはオープンソースです。ライセンスの詳細はリポジトリを確認してください。
-
-## 🔗 リンク
-
-- [Jekyll ドキュメント](https://jekyllrb.com/docs/)
-- [Minimal Mistakes テーマ](https://mmistakes.github.io/minimal-mistakes/)
-- [GitHub Pages ドキュメント](https://pages.github.com/)
-- [GitHub Pages バージョン](https://pages.github.com/versions/)
-
----
-
-**Jekyll、Minimal Mistakes、Dockerで❤️を込めて構築**
