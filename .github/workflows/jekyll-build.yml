@@ -1,41 +1,49 @@
-deploy:
-  runs-on: ubuntu-latest
-  needs: [build_mypage, build_everyday]
-  permissions:
-    contents: write
+name: Build Jekyll Sites
 
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        clean: true
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
-    - name: Download mypage artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: mypage-site
-        path: mypage
+jobs:
+  build_mypage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+      - name: Install dependencies
+        run: |
+          cd mypage
+          bundle install
+      - name: Build mypage
+        run: |
+          cd mypage
+          bundle exec jekyll build -d ../build/mypage
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mypage-site
+          path: build/mypage/
 
-    - name: Download everyday artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: everyday-site
-        path: everyday
-
-    - name: Prepare deployment folder
-      run: |
-        mkdir deploy_root
-        # mypage/_site の中身を deploy_root/mypage にコピー
-        mkdir -p deploy_root/mypage
-        cp -r mypage/* deploy_root/mypage/
-        # everyday/_site の中身を deploy_root/everyday にコピー
-        mkdir -p deploy_root/everyday
-        cp -r everyday/* deploy_root/everyday/
-
-    - name: Deploy to gh-pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: deploy_root
-        user_name: 'github-actions[bot]'
-        user_email: 'github-actions[bot]@users.noreply.github.com'
+  build_everyday:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+      - name: Install dependencies
+        run: |
+          cd everyday
+          bundle install
+      - name: Build everyday
+        run: |
+          cd everyday
+          bundle exec jekyll build -d ../build/everyday
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: everyday-site
+          path: build/everyday/
