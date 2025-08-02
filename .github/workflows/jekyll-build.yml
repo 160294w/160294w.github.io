@@ -21,13 +21,13 @@ jobs:
         run: gem install bundler
 
       - name: Build Theme 1
-        working-directory: source/theme1
+        working-directory: source/mypage
         run: |
           bundle install
           bundle exec jekyll build --destination ../../mypage
 
       - name: Build Theme 2
-        working-directory: source/theme2
+        working-directory: source/everyday
         run: |
           bundle install
           bundle exec jekyll build --destination ../../everyday
