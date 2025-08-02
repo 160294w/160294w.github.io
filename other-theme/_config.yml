@@ -56,7 +56,6 @@ include:
 
 # Exclude from processing
 exclude:
-  - other-theme
   - "*.sublime-project"
   - "*.sublime-workspace"
   - vendor
@@ -112,7 +111,7 @@ defaults:
       author_profile: true
 
 # Build settings
-remote_theme: "mmistakes/minimal-mistakes@4.26.2"
+remote_theme: "jekyll/minima@1e8a445"
 plugins:
   - jekyll-feed
   - jekyll-sitemap
