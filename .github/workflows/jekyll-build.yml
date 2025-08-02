@@ -1,4 +1,4 @@
-name: Build Jekyll Sites
+name: Build and Deploy Jekyll Themes
 
 on:
   push:
@@ -8,42 +8,78 @@ on:
 jobs:
   build_mypage:
     runs-on: ubuntu-latest
+    outputs:
+      mypage-path: ${{ steps.upload.outputs.path }}
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
-      - name: Install dependencies
-        run: |
+      - run: |
           cd mypage
           bundle install
-      - name: Build mypage
-        run: |
+      - run: |
           cd mypage
           bundle exec jekyll build -d ../build/mypage
-      - name: Upload artifact
+      - name: Upload mypage artifact
         uses: actions/upload-artifact@v4
         with:
           name: mypage-site
-          path: build/mypage/
+          path: build/mypage
 
   build_everyday:
     runs-on: ubuntu-latest
+    outputs:
+      everyday-path: ${{ steps.upload.outputs.path }}
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
-      - name: Install dependencies
-        run: |
+      - run: |
           cd everyday
           bundle install
-      - name: Build everyday
-        run: |
+      - run: |
           cd everyday
           bundle exec jekyll build -d ../build/everyday
-      - name: Upload artifact
+      - name: Upload everyday artifact
         uses: actions/upload-artifact@v4
         with:
           name: everyday-site
-          path: build/everyday/
+          path: build/everyday
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build_mypage, build_everyday]
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download mypage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: mypage-site
+          path: mypage
+
+      - name: Download everyday artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: everyday-site
+          path: everyday
+
+      - name: Prepare public folder
+        run: |
+          mkdir -p public/mypage
+          cp -r mypage/* public/mypage/
+          mkdir -p public/everyday
+          cp -r everyday/* public/everyday/
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@_
