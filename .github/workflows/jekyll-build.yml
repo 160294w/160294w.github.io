@@ -1,0 +1,41 @@
+name: Build and Deploy Jekyll Themes
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1  # 必要に応じて変更
+
+      - name: Install Bundler
+        run: gem install bundler
+
+      - name: Build Theme 1
+        working-directory: source/theme1
+        run: |
+          bundle install
+          bundle exec jekyll build --destination ../../mypage
+
+      - name: Build Theme 2
+        working-directory: source/theme2
+        run: |
+          bundle install
+          bundle exec jekyll build --destination ../../everyday
+
+      - name: Commit built sites
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add mypage everyday
+          git commit -m "Build Jekyll themes [skip ci]" || echo "No changes to commit"
+          git push
