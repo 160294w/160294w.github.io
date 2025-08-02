@@ -1,7 +1,34 @@
+# Jekyll generated files
 _site
 .sass-cache
 .jekyll-cache
 .jekyll-metadata
-vendor
 
+# Dependencies
+vendor/
+node_modules/
+
+# Bundler
 Gemfile.lock
+
+# Backup files
+*~
+*.bak
+*.swp
+*.swo
+
+# Local development files
+CLAUDE.local.md
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+*.log
