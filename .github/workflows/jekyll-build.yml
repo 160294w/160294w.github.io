@@ -3,7 +3,7 @@ name: Build and Deploy Jekyll Themes
 on:
   # 開発用ブランチ（例: main）へのpushをトリガーにします
   push:
-    branches: [main]
+    branches: [gh-pages]
   workflow_dispatch:
 
 jobs:
