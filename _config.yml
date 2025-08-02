@@ -56,7 +56,7 @@ include:
 
 # Exclude from processing
 exclude:
-  - other-theme
+  - other
   - "*.sublime-project"
   - "*.sublime-workspace"
   - vendor
