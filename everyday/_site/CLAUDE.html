@@ -1,0 +1,312 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.26.2 by Michael Rose
+  Copyright 2013-2024 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>CLAUDE.md - Your awesome title</title>
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+
+
+  <meta name="author" content="GitHub User">
+  
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Your awesome title">
+<meta property="og:title" content="CLAUDE.md">
+<meta property="og:url" content="http://0.0.0.0:4000/CLAUDE.html">
+
+
+  <meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="canonical" href="http://0.0.0.0:4000/CLAUDE.html">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Your awesome title Feed">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script type="text/javascript">
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+  
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--default">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Your awesome title
+          
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <h1 id="claudemd">CLAUDE.md</h1>
+
+<p>This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.</p>
+
+<h2 id="project-overview">Project Overview</h2>
+
+<p>This is a Jekyll-based GitHub Pages site using the Minimal Mistakes theme. The site is configured to use GitHub Pages hosting with the github-pages gem (v232).</p>
+
+<h3 id="github-pages-compatibility">GitHub Pages Compatibility</h3>
+<ul>
+  <li>Jekyll: 3.10.0</li>
+  <li>Ruby: 3.3.4</li>
+  <li>github-pages gem: 232</li>
+  <li>Remote theme: mmistakes/minimal-mistakes@4.26.2</li>
+</ul>
+
+<p>Current dependency versions match GitHub Pages exactly for full compatibility.</p>
+
+<h3 id="github-pages-docker-environment">GitHub Pages Docker Environment</h3>
+
+<p>A special Docker setup (<code class="language-plaintext highlighter-rouge">Dockerfile.github-pages</code>) is provided that exactly replicates the GitHub Pages environment:</p>
+
+<ul>
+  <li><strong>Ruby</strong>: 3.3.4-alpine</li>
+  <li><strong>Jekyll</strong>: 3.10.0 (via github-pages gem v232)</li>
+  <li><strong>All dependencies</strong>: Match GitHub Pages exactly</li>
+  <li><strong>Environment variables</strong>: Set to match GitHub Pages</li>
+</ul>
+
+<p>Use <code class="language-plaintext highlighter-rouge">make github-pages-serve</code> for the most accurate local development experience.</p>
+
+<h2 id="development-commands">Development Commands</h2>
+
+<p>This project includes a comprehensive Makefile for easy development. Use <code class="language-plaintext highlighter-rouge">make help</code> to see all available commands.</p>
+
+<h3 id="quick-start">Quick Start</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># GitHub Pages compatible environment (RECOMMENDED)</span>
+make github-pages-serve
+
+<span class="c"># Local development (requires Ruby/Bundler)</span>
+make serve
+
+<span class="c"># Docker development (requires Docker)</span>
+make serve-docker
+
+<span class="c"># Docker Compose development</span>
+make compose-up
+</code></pre></div></div>
+
+<h3 id="local-development">Local Development</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install dependencies</span>
+make <span class="nb">install</span>
+<span class="c"># or: bundle install</span>
+
+<span class="c"># Serve the site locally with auto-reload</span>
+make serve
+<span class="c"># or: bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload</span>
+
+<span class="c"># Build the site for production</span>
+make build
+<span class="c"># or: bundle exec jekyll build</span>
+
+<span class="c"># Test the build</span>
+make <span class="nb">test</span>
+</code></pre></div></div>
+
+<h3 id="docker-development">Docker Development</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># GitHub Pages compatible (RECOMMENDED - exact environment match)</span>
+make github-pages-serve
+
+<span class="c"># GitHub Pages with Docker Compose</span>
+make github-pages-up
+make github-pages-down
+
+<span class="c"># Build and serve using custom Docker image</span>
+make serve-docker
+
+<span class="c"># Use official Jekyll Docker image (fastest setup)</span>
+make quick-serve
+
+<span class="c"># Docker Compose (recommended for development)</span>
+make compose-up
+make compose-down
+
+<span class="c"># Build only using Docker</span>
+make build-docker
+</code></pre></div></div>
+
+<h3 id="utility-commands">Utility Commands</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Clean generated files</span>
+make clean
+
+<span class="c"># Open shell in Docker container</span>
+make docker-shell
+
+<span class="c"># Show all available commands</span>
+make <span class="nb">help</span>
+</code></pre></div></div>
+
+<p>The local development server runs on http://localhost:4000 by default.</p>
+
+<h3 id="dependency-management">Dependency Management</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Update all gems</span>
+bundle update
+
+<span class="c"># Update GitHub Pages gem specifically</span>
+bundle update github-pages
+</code></pre></div></div>
+
+<h2 id="site-structure">Site Structure</h2>
+
+<ul>
+  <li><strong>_config.yml</strong>: Main Jekyll configuration file containing site metadata, theme settings, and build configuration</li>
+  <li><strong>_posts/</strong>: Blog posts following Jekyll’s <code class="language-plaintext highlighter-rouge">YEAR-MONTH-DAY-title.MARKUP</code> naming convention</li>
+  <li><strong>_site/</strong>: Generated static site files (auto-generated, not version controlled)</li>
+  <li><strong>Pages</strong>: Markdown files in root directory (index.markdown, about.markdown, hobby.md) become site pages</li>
+  <li><strong>Gemfile</strong>: Ruby gem dependencies for Jekyll and GitHub Pages</li>
+</ul>
+
+<h2 id="content-creation">Content Creation</h2>
+
+<h3 id="blog-posts">Blog Posts</h3>
+<p>Create new posts in <code class="language-plaintext highlighter-rouge">_posts/</code> directory with filename format: <code class="language-plaintext highlighter-rouge">YYYY-MM-DD-title.markdown</code></p>
+
+<p>Required front matter:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">post</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Post</span><span class="nv"> </span><span class="s">Title"</span>
+<span class="na">date</span><span class="pi">:</span> <span class="s">YYYY-MM-DD HH:MM:SS +0900</span>
+<span class="na">categories</span><span class="pi">:</span> <span class="s">category1 category2</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<h3 id="pages">Pages</h3>
+<p>Create new pages as <code class="language-plaintext highlighter-rouge">.markdown</code> or <code class="language-plaintext highlighter-rouge">.md</code> files in root directory.</p>
+
+<p>Required front matter:</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">page</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Page</span><span class="nv"> </span><span class="s">Title"</span>
+<span class="na">permalink</span><span class="pi">:</span> <span class="s">/page-url/</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<h2 id="theme-and-styling">Theme and Styling</h2>
+
+<p>This site uses the Minima theme (version ~2.5). Theme customization should follow Jekyll’s theme override patterns by creating corresponding files in the site directory structure.</p>
+
+<h2 id="deployment">Deployment</h2>
+
+<p>The site is automatically deployed to GitHub Pages when changes are pushed to the <code class="language-plaintext highlighter-rouge">gh-pages</code> branch. No manual build step is required for deployment.</p>
+
+      
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/160294w" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 <a href="http://0.0.0.0:4000">Your awesome title</a>. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
